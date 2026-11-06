@@ -281,7 +281,7 @@ app.use((error, req, res, next) => {
 
 async function startServer() {
   await initializeDatabase();
-  app.listen(port, () => {
+  app.listen(port, "0.0.0.0", () => {
     console.log(`Books API is running at http://localhost:${port}`);
   });
 }

@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: lab-03-books-api
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /books
+    envVars:
+      - key: NODE_ENV
+        value: production

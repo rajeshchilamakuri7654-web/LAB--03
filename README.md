@@ -41,6 +41,12 @@ npm run dev
 
 The server listens on `http://localhost:3000` by default. To use a different port, set the `PORT` environment variable before starting the process. On first startup, the application creates `books.db`, creates the `books` table, and inserts sample rows if the table is empty. Restarting the server does not duplicate the sample rows.
 
+## Render deployment
+
+The root-level `render.yaml` defines a free Render web service. In the Render Dashboard, create a **Blueprint** from the `main` branch of this repository and apply the `lab-03-books-api` service. Render deploys it automatically and provides the public service URL. The service uses Render's `PORT` setting and listens on `0.0.0.0`.
+
+The free service uses an ephemeral filesystem. SQLite data created while the service is running can be lost after a restart or redeploy; the committed sample database is included in each deployment. Use a paid service with a persistent disk if database changes must survive deployments.
+
 ## Database structure
 
 The SQLite database file is `books.db`. Its `books` table has the following columns:
