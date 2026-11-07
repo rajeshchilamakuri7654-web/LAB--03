@@ -4,7 +4,7 @@
   "description": "Lab 3 REST API, query parameters, validation, and debugging",
   "main": "server.js",
   "engines": {
-    "node": ">=20.17.0"
+    "node": "22.22.x"
   },
   "scripts": {
     "start": "node server.js",

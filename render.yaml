@@ -3,9 +3,14 @@ services:
     name: lab-03-books-api
     runtime: node
     plan: free
-    buildCommand: npm install --build-from-source
+    buildCommand: >-
+      npm ci --ignore-scripts --foreground-scripts &&
+      npm_config_build_from_source=true npm rebuild sqlite3 --build-from-source --foreground-scripts &&
+      node -e "require('sqlite3'); console.log('sqlite3 native binding loaded successfully')"
     startCommand: npm start
     healthCheckPath: /books
     envVars:
       - key: NODE_ENV
         value: production
+      - key: NODE_VERSION
+        value: 22.22.0

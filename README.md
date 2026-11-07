@@ -17,10 +17,10 @@
 
 ## Installation
 
-Install Node.js 20.17.0 or newer and npm, open a terminal in this `lab-03` folder, and run:
+Install Node.js 22.22.0 and npm, open a terminal in this `lab-03` folder, and run:
 
 ```powershell
-npm install
+npm ci
 ```
 
 The install creates `node_modules/`, which is excluded by `.gitignore`.
@@ -43,7 +43,9 @@ The server listens on `http://localhost:3000` by default. To use a different por
 
 ## Render deployment
 
-The root-level `render.yaml` defines a free Render web service. In the Render Dashboard, create a **Blueprint** from the `main` branch of this repository and apply the `lab-03-books-api` service. Render deploys it automatically and provides the public service URL. The build compiles `sqlite3` from source so its native module matches Render's Linux runtime. The service uses Render's `PORT` setting and listens on `0.0.0.0`.
+The root-level `render.yaml` defines a free Render web service. In the Render Dashboard, create a **Blueprint** from the `main` branch of this repository and apply the `lab-03-books-api` service. Render deploys it automatically and provides the public service URL. The project pins Node.js 22.22.0 using `.node-version`, `package.json`, and `NODE_VERSION`. The build uses `npm ci` to remove any old `node_modules`, installs without lifecycle scripts, then explicitly rebuilds `sqlite3` from source and checks that its native binding loads. The service uses Render's `PORT` setting and listens on `0.0.0.0`.
+
+For an existing service that is not managed by a Blueprint, set its Render dashboard **Build Command** to the `buildCommand` in `render.yaml`, **Start Command** to `npm start`, and `NODE_VERSION` environment variable to `22.22.0`.
 
 The free service uses an ephemeral filesystem. SQLite data created while the service is running can be lost after a restart or redeploy; the committed sample database is included in each deployment. Use a paid service with a persistent disk if database changes must survive deployments.
 
